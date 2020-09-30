@@ -1,0 +1,49 @@
+.intro{
+
+}
+
+.page{
+/*background-image: url("./images/grey.png");*/
+text-align: left;
+min-height: 100%;
+height: 22.7cm;
+margin: 50px auto;
+border-bottom-style: solid;
+	border-color: black;
+	position: relative;
+background-color: #fbf3ea;
+color: #471212;
+}
+.page h3{
+text-align: center;
+}
+.page p{
+font-family: 'Libre Baskerville', serif;
+line-height: 0.7cm;
+}
+.para {
+margin: 0 80px;
+height: 20cm;
+overflow: auto;
+}
+
+.pagenumber{
+text-align: center;
+bottom: 0;
+margin: 0 48% 10px 49%;
+position: absolute;
+}
+.column {
+	margin-top: 50px;
+}
+
+@media screen and (max-width: 800px) {
+.para {
+margin: 0;
+height: auto;
+min-height: 20cm;
+}
+.page{
+height: auto !important;
+}
+}

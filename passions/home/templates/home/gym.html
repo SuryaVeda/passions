@@ -1,0 +1,74 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block main %}
+<link rel="stylesheet" type="text/css" href="{% static 'home/CSS/music.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'home/CSS/gym.css' %}">
+
+<link href="https://fonts.googleapis.com/css?family=EB+Garamond&display=swap" rel="stylesheet">
+<div class="ima">
+	<img src="{% static 'home/images/gym.jpg'%}" height="500px" width="100%">
+ 
+</div>
+<div class="whole">
+<div class="container-fluid head">
+	<div class="row">
+		<div class="col-lg-10 col-sm-12 about">
+			<h4>About.</h4>
+			<h6>A.Karthik</h6>
+			<img src="{% static 'home/images/kati.jpg'%}" height="220px" width="180px">
+
+			<p>Hi, If you look around, There are plenty of videos, lessons telling you what to do to develop good musculature or "awesome body". This website won't do that. I am going to give you some awesome, I would rather mean "Useful tips" that will help you make your workouts easier.</p>
+			<br>
+			<p><b>Have a great day! and workout.</b></p>
+		</div>
+		<div class="col-lg-2 col-auto contents">
+			<h5>Contents</h5>
+      <div class="d-flex justify-content-center ">
+        <div class="searchbar">
+          <input class="search_input" id="myInput" type="text" name="" placeholder="Search...">
+          <a href="#" class="search_icon"><i class="fas fa-search"></i></a>
+        </div>
+      </div>
+    <ol id="myList">
+    	{% for post in lessons %}
+    	<a href="{% url 'gym:expand' post.pk %}"><li>{{post.name}}</li></a>
+    	{% endfor %}
+    </ol>
+		</div>
+	</div>
+	
+	<div class="guitar">
+		<h4>Gym  Ideas</h4>
+		{% if request.user.admin %}
+    <a href="{% url 'gym:add' %}"><p><b>Add a new lesson</b></p>
+    	{% endif %}
+	</div>
+	
+</div>
+<div class="container-fluid">
+	<div class="row">
+		{% for post in lessons %}
+	<div class="box col-lg-3 col-sm-12">
+		<a href="{% url 'gym:expand' post.pk %}"><h2>{{post.name}}</h2></a>
+    <p><b> {{post.user.username}} |  {{post.date|date:"D, jS M, Y"}}</b></p>
+		<a href="{% url 'gym:expand' post.pk %}"><img src="/media/{{post.images}}" height="300px" width="270px"></a>
+	</div>
+    {% endfor %}
+	</div>
+	
+</div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+	$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myList li").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+{% endblock %}

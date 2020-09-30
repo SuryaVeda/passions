@@ -1,0 +1,71 @@
+
+
+.page{
+text-align: left;
+letter-spacing: 0.5px;
+height: 22.5cm;
+width: 15cm;
+margin: 0 auto;
+border-bottom-style: solid;
+border-bottom-color: black; 
+}
+.page h3{
+text-align: center;
+}
+.page input {
+	width: 98%;
+}
+.page p{
+font-family: 'Libre Baskerville', serif;
+line-height: 0.7cm;
+}
+.para {
+margin: 0 auto;
+width: 11cm;
+border-bottom-style: solid;
+border-bottom-color: black;
+
+}
+
+.head input {
+	height: 50px;
+	text-align: center;
+	font-family: 'Libre Baskerville', serif;
+    font-size: 35px;
+border-style: solid;
+}
+.para textarea {
+	font-family: 'Libre Baskerville', serif;
+line-height: 0.7cm;
+font-size: 20px;
+height: 17cm;
+width: 100%;
+border-style: solid;
+}
+
+.button {
+text-align: center;
+
+}
+
+#id_heading{
+}
+
+#id_para{
+}
+
+@media screen and (max-width: 800px) {
+.para {
+margin: 0;
+height: auto;
+width: 100%;
+}
+.page{
+height: auto;
+width: 100%;
+}
+.para textarea{
+height: auto;
+min-height: 20cm;
+}
+}

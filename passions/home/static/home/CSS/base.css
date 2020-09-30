@@ -1,0 +1,22 @@
+.navbar-nav{
+	text-align: center;
+}
+
+.navbar-nav {
+	margin:0 auto;
+}
+nav {
+	opacity: 1;
+	z-index: 1;
+}
+.nav-brand{
+	color: white;
+}
+.searchbar button {
+  background: transparent;
+  border:transparent;
+  color: red
+}
+.background {
+background-color:  #d9d9d9;
+}

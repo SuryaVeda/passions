@@ -1,0 +1,166 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% load nbsp %}
+{% block main %}
+<link rel="stylesheet" type="text/css" href="{% static 'home/CSS/gym.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'home/CSS/travel.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'home/CSS/music.css' %}">
+
+<link href="https://fonts.googleapis.com/css?family=EB+Garamond&display=swap" rel="stylesheet">
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-lg-10 col-sm-12">
+			<div class="travelPostHeading">
+<h1>{{stor.name}}</h1>   
+    {% if request.user.admin %}
+
+<a href="{% url 'travel:edit' stor.pk %}">edit story!</a>
+{% endif %}
+    <b>{{stor.user.username}} |  {{stor.date|date:"D, jS M, Y"}}</b>
+        <div class="fb-like" data-href="{{request.build_absolute_uri}}" data-width="" data-layout="button_count" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+{% if stor.img1 %}
+<div class="travelImage1">
+<img src="/media/{{stor.img1}}" height="400px" width="800px">
+</div>
+{% endif %}
+
+</div>
+		</div>
+			<div class="col-lg-2 col-auto contents">
+			<h5>Contents</h5>
+      <div class="d-flex justify-content-center ">
+        <div class="searchbar">
+          <input class="search_input" id="myInput" type="text" name="" placeholder="Search...">
+          <a href="#" class="search_icon"><i class="fas fa-search"></i></a>
+        </div>
+      </div>
+    <ol id="myList">
+    	{% for post in posts %}
+    	<a href="{% url 'travel:expand' post.pk %}"><li>{{post.name}}</li></a>
+    	{% endfor %}
+    </ol>
+		</div>
+	</div>
+
+<div class="travelPost">
+  {% if stor.why %}
+  <div class="room">
+<h3>Why {{stor.name}}?</h3>
+<p>{{stor.why|nbsp}}</p>
+</div>
+{% endif %}
+{% if stor.img2 %}
+
+<div class="travelImage">
+<img src="/media/{{stor.img2}}" height="400px" width="800px">
+</div>{% endif %}
+{% if stor.how %}
+<div class="room">
+<h3>How to Reach {{stor.name}} and tips on stay!</h3>
+<p>{{stor.how|nbsp}}</p>
+</div>
+{% endif %}
+{% if stor.img3 %}
+<div class="travelImage">
+<img src="/media/{{stor.img3}}" height="400px" width="800px">
+</div>{% endif %}
+{% if stor.fun %}
+<div class="room">
+<h3>Fun Things to do!</h3>
+<p>{{stor.fun|nbsp}}</p>
+</div>
+{% endif %}
+{% if stor.img4 %}
+<div class="travelImage">
+<img src="/media/{{stor.img4}}" height="400px" width="800px">
+</div>{% endif %}
+</div>
+
+<div class="comments">
+  <div class="tu">
+    <h4>Comments.</h4>
+    <div class="fb-like" data-href="{{request.build_absolute_uri}}" data-width="" data-layout="button_count" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+    <p>{{comment_length}} Comments</p>
+    <a href="#here"><p>Add a comment!</p></a>
+  </div>
+  {% if comments %}
+  <div class="vamps">
+    {% for post in comments %}
+    <img src="{% static 'home/images/malePic.jpg'%}" height="100px" width="100px">
+    <div class="clearfix">
+    <h5>{{post.user.username}}</h5>
+    <p>{{post.description}}</p>
+   <a> ||  {{post.since}} </a> 
+  </div>
+  {% if not post.get_replies %}
+         <div id="anchor" class="reply">
+    <img src="{% static 'home/images/malePic.jpg'%}" height="100px" width="100px">
+    <a> {{request.user.username}}</a>
+      <form method="post" action="{% url 'travel:reply' post.pk stor.pk%}">
+        {% csrf_token %}
+      <p>{{replyForm.description}}</p>
+    <button type="submit" name="button" class="btn">Submit</button>      
+    </form>
+    </div>
+      {% endif %}
+    {% if replies %}
+    <div class="replies">
+      {%for reply in replies %}
+
+      {% if reply.comment.pk == post.pk %}
+    <img src="{% static 'home/images/femalePic.jpg'%}" height="100px" width="100px">
+    <h6>{{reply.user.username}}</h6>
+      <p>{{reply.description}}</p>
+    <a> ||  {{reply.since}} </a> 
+    <br>
+    <br>      
+      {% endif %}
+      {% endfor %}
+      {% if post.get_replies %}
+         <div id="anchor">
+     <img src="{% static 'home/images/malePic.jpg'%}" height="100px" width="100px">
+    <a> {{request.user.username}}</a>
+         
+      <form method="post" action="{% url 'travel:reply' post.pk stor.pk%}">
+        {% csrf_token %}
+      <p>{{replyForm.description}}</p>
+    <button type="submit" name="button" class="btn">Submit</button>      
+    </form>
+    </div>
+      {% endif %}
+    </div>
+    <br>
+    {% endif %}
+   
+    {% endfor %}
+  </div>
+  {% endif %}
+    <div class="c" id="here">
+    <img src="{% static 'home/images/malePic.jpg'%}" height="100px" width="100px">
+    <a> {{request.user.username}}</a>
+
+      <form method="post" action="{% url 'travel:comment' stor.pk %}">
+        {% csrf_token %}
+      <p>{{form.description}}</p>
+    <button type="submit" name="button" class="btn">Submit</button>      
+    </form>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script type="text/javascript">
+	$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myList li").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+  function reply() {
+    var element = document.getElementById('anchor');
+    element.style.display = 'block';
+    return false;
+  }
+</script>
+{% endblock %}

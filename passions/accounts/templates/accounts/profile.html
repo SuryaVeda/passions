@@ -1,0 +1,102 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block main %}
+<link rel="stylesheet" href="{% static 'accounts/css/profile.css' %}">
+<div class="container-fluid row main">
+  <div class="dropdown butt container-fluid">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+     R</button>
+     <div class="dropdown-menu list" aria-labelledby="dropdownMenuButton">
+       <h4>
+         Remainders
+         <a href="{% url 'accounts:remainders' %}"> <img src="/media/images/plus.png" height = "20px" width = "20px"> </a>
+       </h4>
+       <ol>
+         {% for post in remainders %}
+         <li>{{post.text}}</li>
+         <a href="{% url 'accounts:Rdel' post.pk %}"> <img src="/media/images/delete.jpg" height = "40px" width = "40px"> </a>
+         {% endfor %}
+       </ol>
+    </div>
+  </div>
+  <div class="col-lg-2 col-auto rem">
+    <h4>
+      Remainders
+      <a href="{% url 'accounts:remainders' %}"> <img src="/media/images/plus.png" height = "20px" width = "20px"> </a>
+    </h4>
+    <ol>
+      {% for post in remainders %}
+      <li>
+        {{post.text}}
+        <a href="{% url 'accounts:Rdel' post.pk %}"> <img src="/media/images/delete.jpg" height = "40px" width = "40px"> </a>
+
+      </li>
+      {% endfor %}
+    </ol>
+  </div>
+  <div class="col-lg-8 col-md-12 col-auto">
+    <div class="details">
+      <p>{{ profile.name }}</p>
+      <p>Batch: {{ profile.batch }}</p>
+      <p>Date of Birth: {{ profile.dob }}</p>
+      <p>fb/insta: {{ profile.links }}</p>
+      <p>Phone: {{ profile.phone }}</p>
+      <a href="{% url 'accounts:profileForm' profile.pk %}">Change Profile</a>
+    </div>
+  </div>
+  <div class="col-lg-2 col-auto today">
+    <h4>Today</h4>
+    <ol>
+      {% for post in table %}
+    <li>{{post.heading}}</li>
+      {% endfor %}
+    </ol>
+  </div>
+</div>
+<div class="hea">
+  <h3>
+    Time tables
+    <a href="{% url 'accounts:table' %}"> <img src="/media/images/plus.png" height = "20px" width = "20px"> </a>
+  </h3>
+</div>
+{% for table in timetables %}
+<div class="hea">
+  <h4>{{ table.heading }} <a href="{% url 'accounts:Tdel' table.pk %}"> <img src="/media/images/delete.jpg" height = "40px" width = "40px"> </a>
+ </h4>
+</div>
+<div class="table">
+  <div class="row rules">
+    <div class="col-lg-3 col-auto">
+      <p>month/day</p>
+    </div>
+    <div class="col-lg-9 col-auto">
+      <p>Activites <a href="{% url 'accounts:activities' table.pk %}"> <img src="/media/images/plus.png" height = "15px" width = "15px"> </a></p>
+    </div>
+
+  </div>
+    {% for i in table.date_range %}
+    <div class="row dates">
+      <div class="col-lg-3 col-auto">
+        <p>{{ i.month }}/ {{ i.day }} </p>
+      </div>
+      <ol>
+        {% for post in activities %}
+          {% if table.heading == post.table.heading %}
+            {% if post.date == i %}
+        <div class="col-lg-9 col-auto act">
+          <li>
+            <p>{{post.heading}} <a href="{% url 'accounts:Adel' post.pk %}"> <img src="/media/images/delete.jpg" height = "40px" width = "40px"> </a></p>
+            <p>{{post.text}}</p>
+          </li>
+
+        </div>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </ol>
+
+    </div>
+    {% endfor %}
+</div>
+{% endfor %}
+{% endblock %}

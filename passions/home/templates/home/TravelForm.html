@@ -1,0 +1,46 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% load nbsp %}
+{% block main %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'home/CSS/travel.css' %}">
+<div class="formPage">
+<div class="form">
+<form method="post" enctype="multipart/form-data">
+     {% csrf_token %}
+     <br>
+     <p>{{ form.name }}</p>
+     <br>
+     <div>
+          <p> Add Image:  {{form.img1}}</p>
+<br>
+     </div>
+     <div class="desc">
+     <p>{{ form.why}}</p>
+     <br>
+     <div>
+          <p> Add Image:  {{form.img2}}</p>
+<br>
+     </div>
+     <p>{{ form.how }}</p>
+<br>
+      <div>
+          <p> Add Image:  {{form.img3}}</p>
+<br>
+     </div>
+     <p>{{ form.fun }}</p>
+ <br>
+ <div>
+          <p> Add Image:  {{form.img4}}</p>
+<br>
+     </div>
+     <p>{{form.links}}</p>
+     <br>
+     <br>
+
+    <button type="submit" name="button" class="btn">Submit</button>
+</div>
+</form>
+</div>
+</div>
+{% endblock %}

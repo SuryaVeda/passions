@@ -1,0 +1,86 @@
+ 
+.whole{
+background-color: white;
+}
+.pages {
+text-align: center;
+}
+.introye {
+	text-align: center;
+	margin: 30px auto;
+}
+.booty {
+	text-align: center;
+	margin: 50px auto;
+}
+.intro{
+
+}
+
+.page{
+/*background-image: url("./images/grey.png");*/
+text-align: left;
+height: 22.5cm;
+width: 17cm;
+margin: 50px auto;
+border-bottom-style: solid;
+border-bottom-color: black; 
+position: relative;
+}
+.page h3{
+text-align: center;
+}
+.page p{
+font-family: 'Libre Baskerville', serif;
+line-height: 0.7cm;
+}
+.para {
+margin: 0 80px;
+	overflow: auto;
+}
+
+.pagenumber{
+text-align: center;
+position: absolute;
+bottom: 0;
+margin: 0 48% 10px 49%;
+
+}
+.edit p {
+	text-align: center;
+	color: black;
+
+}
+.edit {
+	margin: 40px auto;
+		text-align: center;
+
+}
+.onePage{
+	margin: 40px auto;
+}
+.white {
+background-image: url("./images/grey.png");
+color: white;
+
+}
+.brown {
+background-image: url("./images/sepia.png");
+color: #4f2e0e;
+}
+.black{
+	color: #272700;
+background-image: url("./images/yellow.png");
+}
+@media screen and (max-width: 800px) {
+.para {
+margin: 0;
+height: auto;
+min-height: 20cm;
+
+}
+.page{
+height: auto !important;
+width: 100%;
+}
+}

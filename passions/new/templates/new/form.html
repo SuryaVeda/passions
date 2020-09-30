@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<title></title>
+
+</head>
+<body>
+<h1>Add a new Book</h1>
+ <div class="container box">
+      <div class="formBox container">
+        <form method="post" enctype="multipart/form-data">
+          
+          {% csrf_token %}
+          {{ form.as_ul }}
+          <div id="authorInput">
+          	Author: <input type="text" name="author"><br>
+          </div>
+           <a href="#"> <p id="add">Add new author</p></a>
+          <button type="submit" name="button">submit</button>
+        </form>
+      </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+  $(document).ready(function(){
+      $('#add').click(function () {
+      var input = '<div>Author: <input type="text" name="author"><br></div>'
+      $( "#authorInput" ).append(input);
+    });
+
+});
+</script>
+</body>
+</html>

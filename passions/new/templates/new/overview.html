@@ -1,0 +1,34 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% load nbsp %}
+{% block main %}
+<link rel="stylesheet" type="text/css" href="{% static 'home/CSS/music.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'home/CSS/gym.css' %}">
+ <link rel="stylesheet" type="text/css" href="{% static 'new/overview.css'%}">
+<div class="container-fluid pages">
+<div class="row">
+{% for page in pages %}
+<div class="col-lg-6 col-md-12 col-sm-12 column">
+<div class="page">
+{% if page.heading %}
+<br> <br>
+
+<h3>{{ page.heading|nbsp }}</h3>
+{% else %}
+<br>
+<br>
+{% endif %}
+<div class="para">
+<br>
+
+<p>{{page.para|nbsp }}</p>
+
+<br><br>
+</div>
+<p class="pagenumber"> Page {{page.pageno}} </p>
+</div>
+</div>
+{% endfor %}
+</div>
+</div>
+{% endblock %}

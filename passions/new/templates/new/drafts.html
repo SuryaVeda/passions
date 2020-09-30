@@ -1,0 +1,42 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block main %}
+<link rel="stylesheet" type="text/css" href="{% static 'home/CSS/music.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'home/CSS/gym.css' %}">
+	  <link rel="stylesheet" type="text/css" href="{% static 'new/book.css'%}">
+  <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville&display=swap" rel="stylesheet">
+
+<div class="whole container-fluid">
+<h1>My Drafts</h1>
+<a href="{% url 'new:bookForm' %}"><p>Add a new book</p>
+</a>
+<div>
+	{% for book in books %}
+	{% if book.draft %}
+	<div class="container-fluid">
+	<div class="book row">
+		<div class="col-lg-3 col-sm-12 name">
+		<a href="{% url 'new:bookOverview' book.pk %}"><h2>{{book.name}}</h2></a>
+		{% if request.user.is_admin %}
+		<a href="{% url 'new:bookDetails' book.pk %}"><p>edit.</p></a>
+		<a href="{% url 'new:saveBook' book.pk %}"><p>Save in Library</p></a>
+		{% endif %}
+		{% if book.image %}
+		<a href="{% url 'new:bookOverview' book.pk %}"><img src="/media/{{book.image}}" height="200px" width="200px"></a>
+		{% endif %}
+		<p>Rating: </p>
+	</div>
+	<div class="col-lg-9 col-sm-12 plot">
+		<p><b>Author:</b> {% for i in book.get_authors %} {{i}} | {% endfor %}</p>
+		<h4>Plot</h4>
+		<p>{{book.summary}}</p>
+	</div>
+	</div>
+</div>
+	
+    {% endif %}
+	{% endfor %}
+    
+    </div>
+</div>
+{% endblock %}

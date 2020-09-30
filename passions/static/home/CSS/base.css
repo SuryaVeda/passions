@@ -1,0 +1,11 @@
+.navbar-nav{
+	text-align: center;
+}
+
+.navbar-nav {
+	margin:0 auto;
+}
+nav {
+	opacity: 1;
+	z-index: 1;
+}

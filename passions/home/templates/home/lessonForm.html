@@ -1,0 +1,71 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% load nbsp %}
+{% block main %}
+<link rel="stylesheet" type="text/css" href="{% static 'home/CSS/music.css' %}">
+<div class="formPage">
+<div class="form">
+<form method="post" enctype="multipart/form-data">
+     {% csrf_token %}
+     <br><br>
+     <h2>Add a Lesson!</h2>
+     <br><br><br>
+     <p>{{ form.name }}</p>
+     <br>
+     {% if form.images %}
+     <div>
+          <p> Add Image:  {{form.images}}</p>
+<br>
+     </div>
+     {% endif %}
+     <p>{{ form.description}}</p>
+     <br>
+        {% if form.img2 %}
+     <div>
+          <p> Add Image:  {{form.img2}}</p>
+<br>
+     </div>
+     {% endif %}
+          <p>{{ form.description2}}</p>
+     <br>
+
+     {% if form.img3 %}
+     <div>
+          <p> Add Image:  {{form.img3}}</p>
+<br>
+     </div>
+     {% endif %}
+     <p>{{ form.description3}}</p>
+     <br>
+     {% if form.img4 %}
+     <div>
+          <p> Add Image:  {{form.img4}}</p>
+<br>
+     </div>
+     {% endif %}
+     <p>{{ form.description4}}</p>
+     <br>
+
+     <p>{{form.url}}</p>
+     <br>
+     
+     {% if form.image %}
+     <div>
+          <p> Add Image:  {{form.image}}</p>
+<br>
+     </div>
+     {% endif %}
+  
+     
+     {% if form.pdf %}
+     <div>
+          <p> Add pdf:  {{form.pdf}}</p>
+     </div>
+     <br><br>
+     {% endif %}
+
+    <button type="submit" name="button" class="btn">Submit</button>
+</form>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,95 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block main %}
+<link rel="stylesheet" type="text/css" href="{% static 'home/CSS/music.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'home/CSS/gym.css' %}">
+
+<link href="https://fonts.googleapis.com/css?family=EB+Garamond&display=swap" rel="stylesheet">
+<div class="container-fluid">
+	
+<div class="ima">
+	<img src="{% static 'home/images/music.jpg'%}" height="500px" width="100%">
+
+</div>
+<div class="whole">
+<div class="container-fluid head">
+	<div class="row">
+		<div class="col-lg-10 col-sm-12 about">
+			<h4>About.</h4>
+			<div class="about">
+			<h6>A.Karthik</h6>
+			<img src="{% static 'home/images/karthik.jpg'%}" height="220px" width="180px">
+
+			<p>Hi, I am a guitar freak! I believe travelling can blah blah blah blah blah blah ... </p>
+		</div>
+		</div>
+		<div class="col-lg-2 col-auto contents">
+			<h5>Contents</h5>
+      <div class="d-flex justify-content-center ">
+        <div class="searchbar">
+          <input class="search_input" id="myInput" type="text" name="" placeholder="Search...">
+          <a href="#" class="search_icon"><i class="fas fa-search"></i></a>
+        </div>
+      </div>
+
+    <ol id="myList">
+    	{% for post in videos %}
+    	<a href="#{{post.pk}}"><li>{{post.name}}</li></a>
+    	{% endfor %}
+    </ol>
+		</div>
+	</div>
+	<!--div class="dropdown">
+  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+    Contents
+  </button>
+  <div class="dropdown-menu">
+  	<div class="d-flex justify-content-center ">
+        <div class="searchbar">
+          <input class="search_input" id="myInput" type="text" name="" placeholder="Search...">
+          <a href="#" class="search_icon"><i class="fas fa-search"></i></a>
+        </div>
+      </div>
+     <ol id="myList">
+    	{% for post in videos %}
+    	<a href="{% url 'music:expand' post.pk %}" class="dropdown-item"><li>{{post.name}}</li></a>
+    	{% endfor %}
+    </ol>
+  </div>
+</div-->
+	<div class="guitar">
+		<h4>Guitar lessons</h4>
+    <a href="{% url 'music:add' %}"><p><b>Add a new lesson</b></p>
+	</div>
+	
+</div>
+<div class="who">
+	<div class="row">
+		{% for post in videos %}
+	<div class="box col-lg-3 col-sm-12">
+		<a href="{% url 'music:expand' post.pk %}"><h2>{{post.name}}</h2></a>
+    <p><b> {{post.user.username}} |  {{post.date|date:"D, jS M, Y"}}</b></p>
+		
+		<a href="{% url 'music:expand' post.pk %}"><iframe width="270px" height="300px" src="https://www.youtube.com/embed/{{post.get_code}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></a>
+	</div>
+
+    {% endfor %}
+	</div>
+	
+</div>
+</div>
+</div>
+
+{% endblock %}
+{% block js %}
+<script type="text/javascript">
+	$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myList li").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+{% endblock %}

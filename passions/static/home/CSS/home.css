@@ -1,0 +1,127 @@
+body{
+	    font-family: 'EB Garamond', serif;
+      background-color:  #ffccd5;
+
+}
+.back {
+	background-image: url('../images/stars.jpg');
+	height: 450px;
+	width: 100%;
+	color: white;
+	text-align: center;
+	vertical-align: middle;
+	padding-top: 200px;
+
+}
+.whole{
+      font-family: 'EB Garamond', serif;
+
+}
+.navbar-nav {
+  margin:0 auto;
+}
+.nav-brand {
+  color: white;
+        font-family: 'EB Garamond', serif;
+
+}
+
+
+.back h1{
+	letter-spacing: 10px;
+	font-size: 60px;
+    font-family: 'EB Garamond', serif;
+}
+.bg-custom{
+	background-color: black;
+}
+.searchbar{
+    background-color: #353b48;
+    border-radius: 30px;
+    }
+.search_input{
+    color: white;
+    border: 0;
+    outline: 0;
+    background: none;
+    width: 0;
+    caret-color:transparent;
+    line-height: 20px;
+    transition: width 0.4s linear;
+    }
+
+    .searchbar:hover > .search_input{
+    width: 200px;
+    caret-color:red;
+    transition: width 0.4s linear;
+    }
+
+    .searchbar:hover > .search_icon{
+    background: white;
+    color: #e74c3c;
+    }
+
+    .search_icon{
+    height: 40px;
+    width: 40px;
+    float: right;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color:white;
+    }
+
+   .travel h4{
+   	font-family: 'EB Garamond', serif;
+   	letter-spacing: 3px;
+	text-align: left;
+   font-size: 40px;
+   border-bottom: grey;
+   border-bottom-style: solid;
+   margin-top: 50px;
+}
+
+.whole{
+  background-color:  #d9d9d9;
+}
+.music{
+}
+.travel{
+}
+.travel h3{
+	font-family: 'EB Garamond', serif;
+	text-align: left;
+   font-size: 30px;
+   font-weight: bold;
+   margin-top: 20px;
+}
+.box {
+    font-family: 'EB Garamond', serif;
+    height: 400px;
+    width: 300px;
+    border-style: solid;
+    border-color: grey;
+    text-align: center;
+    margin:40px 30px;
+    background-color: white;
+}
+.box h2 {
+    color: black;
+}
+.foot{
+  color: white;
+  background-color: brown;
+}
+@media screen and (max-width: 800px) {
+  .back h1{
+  letter-spacing: 5px;
+  font-size: 40px;
+    font-family: 'EB Garamond', serif;
+
+}
+.travels img {
+  height: 300px;
+}
+
+}

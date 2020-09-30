@@ -1,0 +1,31 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% load nbsp %}
+{% block main %}
+<link rel="stylesheet" type="text/css" href="{% static 'home/CSS/music.css' %}">
+<div class="formPage">
+<div class="form">
+<form method="post" enctype="multipart/form-data">
+     {% csrf_token %}
+     <br><br>
+     <h2>Add News!</h2>
+     <br><br><br>
+     <p>Category: {{form.category}}</p>
+     <p>{{ form.heading }}</p>
+     <br>
+<div>
+          <p> Add Image:  {{form.image}}</p>
+<br>
+     </div>     <br>
+
+<p>{{form.description}}</p>
+     <p>{{form.url}}</p>
+          <p>{{form.url2}}</p>
+
+     <br>
+
+    <button type="submit" name="button" class="btn">Submit</button>
+</form>
+</div>
+</div>
+{% endblock %}

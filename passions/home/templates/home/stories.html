@@ -1,0 +1,132 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% load nbsp %}
+{% block main %}
+<link rel="stylesheet" type="text/css" href="{% static 'home/CSS/home.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'home/CSS/music.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'home/CSS/gym.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'home/CSS/travel.css' %}">
+
+<link href="https://fonts.googleapis.com/css?family=EB+Garamond&display=swap" rel="stylesheet">
+
+<div class="travel news">
+  <h4>
+    News
+  </h4>
+{% if request.user.admin %}
+    <a href="{% url 'home:add' %}"><p><b>Add news</b></p></a>
+      {% endif %}
+      {% if news %}
+          {% for post in news %}
+    <div class="container-fluid data">
+          <p style="color: red; margin: 0;">{{post.category}}</p>
+    <h2>"{{post.heading}}"</h2>
+    <b>{{post.user.username}} |  {{post.date|date:"D, jS M, Y"}}</b><br>
+            <div class="fb-like" data-href="{{request.build_absolute_uri}}" data-width="" data-layout="button_count" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+
+    {% if request.user.admin %}
+    <br>
+    <a href="{% url 'home:edit' post.pk %}"><b>Edit news</b></a>
+      {% endif %}
+    {% if post.image %}
+    <br>
+    <img class="kk" src = "/media/{{post.image}}" height="500px" width="90%">
+    {% endif %}
+    <p class="pp">{{post.description|nbsp}}</p>
+    {% if post.url %}
+   <a href="{{post.url}}"> <p> Link to Youtube </p></a>
+    <a href="#"><iframe id="youtubeFrame" width="270px" height="300px" src="https://www.youtube.com/embed/{{post.get_code}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></a>
+    {% endif %}
+    {% if post.url2 %}
+   <a href="{{post.url2}}"> <p> Link to source of news </p></a>
+    {% endif %}
+   <div class="comments">
+  <div class="tu">
+    <h4>Comments.</h4>
+    <div class="fb-like" data-href="{{request.build_absolute_uri}}" data-width="" data-layout="button_count" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+    <p>{{comment_length}} Comments</p>
+    <a href="#here"><p>Add a comment!</p></a>
+  </div>
+  {% if comments %}
+  <div class="vamps">
+    {% for comment in comments %}
+    {% if comment.pk_comment == post.pk %}
+    <img src="{% static 'home/images/malePic.jpg'%}" height="100px" width="100px">
+    <div class="clearfix">
+    <h5>{{comment.user.username}}</h5>
+    <p>{{comment.description}}</p>
+   <a> ||  {{comment.since}} </a> 
+  </div>
+  {% if not comment.get_replies %}
+         <div id="anchor" class="reply">
+    <img src="{% static 'home/images/malePic.jpg'%}" height="100px" width="100px">
+    <a> {{request.user.username}}</a>
+      <form method="post" action="{% url 'stories:reply' comment.pk post.pk%}">
+        {% csrf_token %}
+      <p>{{replyForm.description}}</p>
+    <button type="submit" name="button" class="btn">Submit</button>      
+    </form>
+    </div>
+      {% endif %}
+    {% if replies %}
+    <div class="replies">
+      {%for reply in replies %}
+
+      {% if reply.comment.pk == comment.pk %}
+    <img src="{% static 'home/images/femalePic.jpg'%}" height="100px" width="100px">
+    <h6>{{reply.user.username}}</h6>
+      <p>{{reply.description}}</p>
+    <a> ||  {{reply.since}} </a> 
+    <br>
+    <br>      
+      {% endif %}
+      {% endfor %}
+      {% if comment.get_replies %}
+         <div id="anchor">
+     <img src="{% static 'home/images/malePic.jpg'%}" height="100px" width="100px">
+    <a> {{request.user.username}}</a>
+         
+      <form method="post" action="{% url 'stories:reply' comment.pk post.pk%}">
+        {% csrf_token %}
+      <p>{{replyForm.description}}</p>
+    <button type="submit" name="button" class="btn">Submit</button>      
+    </form>
+    </div>
+      {% endif %}
+    </div>
+    <br>
+    {% endif %}
+    {% endif %}
+   
+    {% endfor %}
+  </div>
+  {% endif %}
+    <div class="c" id="here">
+    <img src="{% static 'home/images/malePic.jpg'%}" height="100px" width="100px">
+    <a> {{request.user.username}}</a>
+
+      <form method="post" action="{% url 'stories:comment' post.pk %}">
+        {% csrf_token %}
+      <p>{{form.description}}</p>
+    <button type="submit" name="button" class="btn">Submit</button>  
+    </form>
+    </div>
+</div>
+</div>
+{% endfor %}
+{% endif %}
+</div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+	$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myList li").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+{% endblock %}

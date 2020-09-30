@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+{% load nbsp %}
+<head>
+<meta name=viewport content="width=device-width, initial-scale=1">
+<meta name="google-signin-client_id" content="458074446981-mkq40bu39qe7eahf85umpfhmv05h8lkq.apps.googleusercontent.com">
+
+	<title>myPassions</title>
+<link rel="stylesheet" type="text/css" href="{% static 'home/CSS/home.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'home/CSS/music.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'new/book.css'%}">
+
+<link href="https://fonts.googleapis.com/css?family=EB+Garamond&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'home/CSS/base.css' %}">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+</head>
+<body>
+  <div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v3.3"></script>
+<div class="whole container-fluid">
+<div class="back">
+	<h1>PASSIONS</h1>
+	<p>Date Created: 23 July 2019.</p>
+</div>
+
+<nav class="navbar navbar-expand-sm bg-custom navbar-dark">
+<a class="nav-brand" href="{% url 'home:home' %}">Passions</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navContents" aria-controls="navContents" aria-expanded="false" aria-label="Toggle navigation">
+           <span class="navbar-toggler-icon"></span>
+        </button>
+  <div class="collapse navbar-collapse" id="navContents">
+
+  <!-- Links -->
+  <div class="navbar-nav">
+          <a class="nav-link nav-item" href="{% url 'home:home' %}">Home</a>
+      <a class="nav-item nav-link" href="{% url 'stories:main' %}">News</a>
+
+      <a class="nav-link nav-item" href="{% url 'travel:main' %}">Travel</a>
+      <a class="nav-item nav-link " href="{% url 'gym:main' %}">Gym</a>
+      <a class="nav-item nav-link" href="{% url 'new:lib' %}">Stories</a>
+ <form method="get" action="{% url 'home:search' %}">
+      <div class="nav-item searchbar">
+          <input class="search_input"  id="myInput" type="text" name="search" placeholder="Search..." value="{{ request.GET.search }}">
+          <a href="#" type="submit" class="search_icon"><button type="submit"><i class="fas fa-search"></i></button></a>
+        
+    </div>
+  </form>
+    <div class="log">
+          {% if request.user.is_authenticated %}
+      <a class="nav-item nav-link" href="{% url 'accounts:logout' %}" onclick="signOut()">logout</a>
+
+      {% else %}
+       <a class="nav-item nav-link" href="{% url 'accounts:login' %}">login</a>
+       {% endif %}
+      </div>
+  </div>
+</div>
+</nav>
+{% if message %}
+<p id="message">{{message}}</p>
+{% endif %}
+{% if results %}
+{% if travel %}
+    <div class="container-fluid">
+  <div class="row">
+    {% for post in travel %}
+  <div class="box col-lg-3 col-sm-12">
+    <a href="{% url 'travel:main'%}"><h2>{{post.name}}</h2></a>
+    <a href="{% url 'travel:main' %}"><img src="/media/{{post.img1}}" height="300px" width="270px"></a>
+  </div>
+    {% endfor %}
+  </div>
+  
+</div>
+{% endif %}
+{% if music %}
+    <div class="container-fluid">
+  <div class="row">
+    {% for post in music %}
+  <div class="box col-lg-3 col-sm-12">
+    <a href="{% url 'music:expand' post.pk %}"><h2>{{post.name}}</h2></a>
+    <a href="{% url 'music:expand' post.pk %}"><iframe width="270px" height="300px" src="https://www.youtube.com/embed/{{post.get_code}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></a>
+  </div>
+    {% endfor %}
+  </div>
+  
+</div>
+{% endif %}
+{% if gym %}
+    <div class="container-fluid">
+  <div class="row">
+    {% for post in gym %}
+  <div class="box col-lg-3 col-sm-12">
+    <a href="{% url 'gym:expand' post.pk %}"><h2>{{post.name}}</h2></a>
+    <a href="{% url 'gym:expand' post.pk %}"><img src="/media/{{post.images}}" height="300px" width="270px"></a>
+  </div>
+    {% endfor %}
+  </div>
+  
+</div>
+{% endif %}
+{% if stories %}
+   <div class="container-fluid">
+      {% for book in stories %}
+  
+  <div class="book row">
+    <div class="col-lg-3 col-sm-12 name">
+    <a href="{% url 'new:bookOverview' book.pk %}"><h2>{{book.name}}</h2></a>
+    {% if request.user.is_admin %}
+    <a href="{% url 'new:bookDetails' book.pk %}"><p>edit.</p></a>
+    {% endif %}
+    {% if book.image %}
+    <a href="{% url 'new:bookOverview' book.pk %}"><img src="/media/{{book.image}}" height="200px" width="200px"></a>
+    {% endif %}
+    <p>Rating: </p>
+  </div>
+  <div class="col-lg-9 col-sm-12 plot">
+    <p><b>Author:</b> {% for i in book.get_authors %} {{i}} | {% endfor %}</p>
+    <h4>Plot</h4>
+    <p>{{book.summary}}</p>
+  </div>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+{% if news %}
+<div class="travel news">
+  <h4>
+    News
+  </h4>
+   {% for post in news %}
+    <div class="container-fluid data">
+          <p style="color: red; margin: 0;">{{post.category}}</p>
+    <h2>"{{post.heading}}"</h2>
+    {% if request.user.admin %}
+    <br>
+    <a href="{% url 'home:edit' post.pk %}"><b>Edit news</b></a>
+      {% endif %}
+    {% if post.image %}
+    <br>
+    <img src = "/media/{{post.image}}" height="500px" width="90%">
+    {% endif %}
+    <p>{{post.description|nbsp}}</p>
+    {% if post.url %}
+    <a href="#"><iframe width="270px" height="300px" src="https://www.youtube.com/embed/{{post.get_code}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></a>
+    {% endif %}
+   <div class="head comments">
+    <h4>Comments.</h4>
+    <div class="fb-like" data-href="{{request.build_absolute_uri}}" data-width="" data-layout="button_count" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+  </div>
+    <div class="fb-comments" data-href="{{request.build_absolute_uri}}" data-width="" data-numposts="5"></div>
+</div>
+{% endfor %}
+</div>
+{% endif %}
+{% else %}
+<div class="travel travels">
+	<h4>
+		Travel
+	</h4>
+	<img src="{% static 'home/images/himalayas.jpg'%}" height="500px" width="100%">
+    <h3>Recent Posts</h3>
+    <div class="container-fluid">
+	<div class="row">
+		{% for post in travel %}
+	<div class="box col-lg-3 col-sm-12">
+		<a href="{% url 'travel:main'%}"><h2>{{post.name}}</h2></a>
+		<a href="{% url 'travel:main' %}"><img src="/media/{{post.img1}}" height="300px" width="270px"></a>
+	</div>
+    {% endfor %}
+	</div>
+	
+</div>
+</div>
+{% if videos %}
+<div class="travel music">
+	<h4>
+		Music
+	</h4>
+    <h3>Recent Posts</h3>
+    <div class="container-fluid">
+	<div class="row">
+		{% for post in videos %}
+	<div class="box col-lg-3 col-sm-12">
+		<a href="{% url 'music:expand' post.pk %}"><h2>{{post.name}}</h2></a>
+		<a href="{% url 'music:expand' post.pk %}"><iframe width="270px" height="300px" src="https://www.youtube.com/embed/{{post.get_code}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></a>
+	</div>
+
+    {% endfor %}
+	</div>
+	
+</div>
+</div>
+{% endif %}
+{% if lessons %}
+<div class="travel">
+	<h4>
+		Gym
+	</h4>
+    <h3>Recent Posts</h3>
+    <div class="container-fluid">
+	<div class="row">
+		{% for post in lessons %}
+	<div class="box col-lg-3 col-sm-12">
+		<a href="{% url 'gym:expand' post.pk %}"><h2>{{post.name}}</h2></a>
+		<a href="{% url 'gym:expand' post.pk %}"><img src="/media/{{post.images}}" height="300px" width="270px"></a>
+	</div>
+    {% endfor %}
+	</div>
+	
+   </div>
+</div>
+{% endif %}
+
+{% endif %}
+</div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script>
+  function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
+  }
+</script>
+
+</body>
+</html>

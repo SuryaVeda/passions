@@ -1,0 +1,171 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% load nbsp %}
+{% block main %}
+<link rel="stylesheet" type="text/css" href="{% static 'home/CSS/gym.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'home/CSS/music.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'home/CSS/travel.css' %}">
+
+<link href="https://fonts.googleapis.com/css?family=EB+Garamond&display=swap" rel="stylesheet">
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-lg-10 col-sm-12 lio">
+			<h2>{{post.name}}</h2>
+        <b>{{post.user.username}} |  {{post.date|date:"D, jS M, Y"}}</b> <br> <br>
+        <div class="fb-like" data-href="{{request.build_absolute_uri}}" data-width="" data-layout="button_count" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>	
+                <br>
+                {% if request.user.admin %}
+<a href="{% url 'gym:edit' post.pk%}">Edit page</a>
+{% endif %}
+<div class="dess">
+
+              {% if post.images %}
+              <div>
+        		<img src="/media/{{post.images}}" height="300px" width="500px">
+          </div>
+            {% endif %}
+		{% if post.description %}
+			<p>{{post.description|nbsp }}</p>
+      {% endif %}
+      {% if post.img2 %}
+      <img src="/media/{{post.img2}}" height="300px" width="500px">
+      {% endif %} 
+      {% if post.description2 %}
+      <p>{{post.description2|nbsp }}</p>
+      {% endif %}
+      {% if post.img3 %}
+      <img src="/media/{{post.img3}}" height="300px" width="500px">
+      {% endif %}
+      {% if post.description3 %}
+      <p>{{post.description3|nbsp }}</p>
+      {% endif %}
+      {% if post.img4 %}
+      <img src="/media/{{post.img3}}" height="300px" width="500px">
+      {% endif %}
+      {% if post.description4 %}
+      <p>{{post.description4|nbsp }}</p>
+      {% endif %}
+    </div>
+               <a href="{{post.url}}"><p>link to the video</p> </a>
+					
+				
+			{% if post.url %}
+               <iframe width="560" height="315" src="https://www.youtube.com/embed/{{post.get_code}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            {% endif %}		
+		</div>
+			<div class="col-lg-2 col-auto contents">
+			<h5>Contents</h5>
+      <div class="d-flex justify-content-center ">
+        <div class="searchbar">
+          <input class="search_input" id="myInput" type="text" name="" placeholder="Search...">
+          <a href="#" class="search_icon"><i class="fas fa-search"></i></a>
+        </div>
+      </div>
+    <ol id="myList">
+    	{% for post in lessons %}
+    	<a href="{% url 'gym:expand' post.pk %}"><li>{{post.name}}</li></a>
+    	{% endfor %}
+    </ol>
+		</div>
+	</div>
+  <div class="dropdown">
+  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+    Contents
+  </button>
+  <div class="dropdown-menu">
+    <div class="d-flex justify-content-center ">
+        <div class="searchbar">
+          <input class="search_input" id="myInput" type="text" name="" placeholder="Search...">
+          <a href="#" class="search_icon"><i class="fas fa-search"></i></a>
+        </div>
+      </div>
+     <ol id="myList">
+      {% for post in lessons %}
+      <a href="{% url 'gym:expand' post.pk %}" class="dropdown-item"><li>{{post.name}}</li></a>
+      {% endfor %}
+    </ol>
+  </div>
+</div>
+<div class="comments">
+  <div class="tu">
+    <h4>Comments.</h4>
+    <div class="fb-like" data-href="{{request.build_absolute_uri}}" data-width="" data-layout="button_count" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+    <p>{{comment_length}} Comments</p>
+    <a href="#here"><p>Add a comment!</p></a>
+  </div>
+  {% if comments %}
+  <div class="vamps">
+    {% for comment in comments %}
+    <img src="{% static 'home/images/malePic.jpg'%}" height="100px" width="100px">
+    <div class="clearfix">
+    <h5>{{comment.user.username}}</h5>
+    <p>{{comment.description}}</p>
+   <a> ||  {{comment.since}} </a> 
+  </div>
+  {% if not comment.get_replies %}
+         <div id="anchor" class="reply">
+    <img src="{% static 'home/images/malePic.jpg'%}" height="100px" width="100px">
+    <a> {{request.user.username}}</a>
+      <form method="post" action="{% url 'gym:reply' comment.pk post.pk%}">
+        {% csrf_token %}
+      <p>{{replyForm.description}}</p>
+    <button type="submit" name="button" class="btn">Submit</button>      
+    </form>
+    </div>
+      {% endif %}
+    {% if replies %}
+    <div class="replies">
+      {%for reply in replies %}
+
+      {% if reply.comment.pk == comment.pk %}
+    <img src="{% static 'home/images/femalePic.jpg'%}" height="100px" width="100px">
+    <h6>{{reply.user.username}}</h6>
+      <p>{{reply.description}}</p>
+    <a> ||  {{reply.since}} </a> 
+    <br>
+    <br>      
+      {% endif %}
+      {% endfor %}
+      {% if comment.get_replies %}
+         <div id="anchor">
+     <img src="{% static 'home/images/malePic.jpg'%}" height="100px" width="100px">
+    <a> {{request.user.username}}</a>
+         
+      <form method="post" action="{% url 'gym:reply' comment.pk post.pk%}">
+        {% csrf_token %}
+      <p>{{replyForm.description}}</p>
+    <button type="submit" name="button" class="btn">Submit</button>      
+    </form>
+    </div>
+      {% endif %}
+    </div>
+    <br>
+    {% endif %}
+   
+    {% endfor %}
+  </div>
+  {% endif %}
+    <div class="c" id="here">
+    <img src="{% static 'home/images/malePic.jpg'%}" height="100px" width="100px">
+    <a> {{request.user.username}}</a>
+
+      <form method="post" action="{% url 'gym:comment' post.pk %}">
+        {% csrf_token %}
+      <p>{{form.description}}</p>
+    <button type="submit" name="button" class="btn">Submit</button>      
+    </form>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script type="text/javascript">
+	$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myList li").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+{% endblock %}

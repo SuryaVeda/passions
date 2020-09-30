@@ -1,0 +1,25 @@
+.whole{
+	font-family: 'Libre Baskerville', serif;
+
+}
+
+a{
+	color: #471212;
+}
+.book {
+	border-color: #471212;
+	background-color: white;
+    margin-top: 50px;
+ }
+.name {
+	text-align: center;
+	margin: 20px auto;
+	color: #471212;
+}
+.name a {
+	color: #471212;
+	margin-bottom:  30px;
+}
+.plot{
+	margin: 50px auto;
+}

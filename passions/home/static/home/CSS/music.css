@@ -1,0 +1,216 @@
+.box {
+    font-family: 'EB Garamond', serif;
+    height: 400px;
+    width: 300px;
+    border-style: solid;
+    border-color: purple;
+    text-align: center;
+    margin:40px 30px;
+    background-color: white;
+}
+.box h2 {
+    color: black;
+}
+
+
+.nav-brand{
+  color: white;
+      font-family: 'EB Garamond', serif;
+  font-size: 25px;
+  display: none;
+}
+.head{
+	font-family: 'EB Garamond', serif;
+	text-align: center;
+
+}
+
+.head h4{
+	text-align: left;
+   font-size: 40px;
+   border-bottom: grey;
+   border-bottom-style: solid;
+   margin-bottom:50px;
+}
+.head img{
+	text-align: center;
+	margin:50px auto;
+}
+.head p{
+     text-align: center;
+}
+.contents {
+	border-style: solid;
+	border-color: grey;
+    height: 500px;
+    overflow: scroll;
+}
+.contents h5{
+	text-decoration: underline;
+}
+.contents li {
+	text-align: left;
+	color: black;
+	border-bottom: grey;
+   border-bottom-style: solid;
+}
+.dropdown{
+  display: none;
+}
+.searchbar{
+    margin-bottom: 30px;
+    height: 40px;
+    background-color: #353b48;
+    border-radius: 30px;
+    }
+.search_input{
+    color: white;
+    border: 0;
+    outline: 0;
+    background: none;
+    width: 0;
+    caret-color:transparent;
+    line-height: 40px;
+    transition: width 0.4s linear;
+    }
+
+    .searchbar:hover > .search_input{
+    width: 200px;
+    caret-color:red;
+    transition: width 0.4s linear;
+    }
+
+    .searchbar:hover > .search_icon{
+    background: white;
+    color: #e74c3c;
+    }
+
+    .search_icon{
+    height: 40px;
+    width: 40px;
+    float: right;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color:white;
+    }
+.guitar h4 {
+    margin-top:80px;
+    margin-bottom: 0;
+}
+.guitar p {
+  text-align: left;
+  margin: 0;
+}
+.whole{
+      background-color:  #d9d9d9;
+
+}
+.post {
+    margin-top:120px;
+    font-family: 'EB Garamond', serif;
+    border-bottom-style: solid;
+    border-bottom-color: grey;
+
+}
+.post li {
+    text-align: left;
+    margin:60px auto;
+    text-decoration: underline;
+    font-size: 25px;
+}
+.post b{
+    text-decoration: underline;
+}
+.post p {
+    font-size: 22px;
+}
+.who{
+    background-color: #d9d9d9;
+}
+.comments{
+    text-align: left;
+    margin: 0;
+}
+
+.fb-comments{
+     border-bottom-style: solid;
+     border-bottom-color: grey;
+}
+.form {
+width: 17cm;
+text-align: center;
+background-color:white; 
+margin: 0 auto;
+}
+
+.formPage{
+  text-align: center;
+  background-color:  #d9d9d9;
+}
+@media screen and (max-width: 800px) {
+  .ima img{
+    width: 100%;
+    height: 300px;
+  }
+  .dropdown{
+    display: block;
+    border-style: solid;
+    border-color: grey;
+    position: fixed;
+    top: 10%;
+    z-index: 1;
+    right: 1%;
+  }
+  .dropdown-menu{
+    overflow: scroll;
+    height: 300px;
+    width: auto;
+  }
+  .dropdown button{
+    background-color: grey;
+        border-style: solid;
+    border-color: grey;
+
+  }
+  .contents {
+    display: none;
+  }
+  .box {
+    height: 350px;
+    margin:40px auto;
+  }
+  .box img{
+    height: 250px;
+    width:100%;
+  }
+  iframe {
+    height: 300px;
+    width: 100%;
+  }
+
+  .lio img{
+    width: 100%;
+    height: 300px;
+  }
+  .nav-brand{
+  color: white;
+      font-family: 'EB Garamond', serif;
+  font-size: 25px;
+  display: block;
+}
+.form {
+width: 90%;
+text-align: center;
+background-color:white; 
+margin: 0 auto;
+}
+.form textarea{
+  width: 100%;
+}
+.formPage{
+  text-align: center;
+  background-color:  #d9d9d9;
+}
+}

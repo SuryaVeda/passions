@@ -1,0 +1,77 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% load nbsp %}
+{% block main %}
+<link rel="stylesheet" type="text/css" href="{% static 'home/CSS/music.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'home/CSS/gym.css' %}">
+
+ <link rel="stylesheet" type="text/css" href="{% static 'new/details.css'%}">
+<div class="whole container-fluid" >
+<div class="introye">
+<h1>{{ book.name }}</h1>
+<p>{% for i in book.get_authors %} {{i}} | {% endfor %}</p>
+<p>	<a href="{% url 'new:pdf' book.pk %}">
+		save as pdf!
+	</a></p>
+</div>
+<div class="row booty">
+<div class="backgroundColor col-lg-6 col-auto">
+	<h4>Background Colors</h4>
+	<ul>
+		<a href="#" id="grey" onclick="gcss()" ><li>Grey:<img src="{% static 'new/images/grey.png' %}" height="40px" width="40px"></li></a>
+		<a href="#" id="sepia" ><li>Sepia:<img src="{% static 'new/images/sepia.png' %}" height="40px" width="40px"></li></a>
+		
+		<a href="#" id="yellow" ><li>Yellow:<img src="{% static 'new/images/yellow.png' %}" height="40px" width="40px"></li></a>
+	</ul>
+</div>
+<div class="fontColor col-lg-5 col-auto">
+	<h4>Font Colors</h4>
+	<ul>
+		<li><a href="#" id="white">White</a></li>
+		<li><a href="#" id="brown">Brown</a></li>
+		<li><a href="#" id="black">black</a></li>
+	</ul>
+</div>
+</div>
+<div class="pages">
+	<div class="intro">
+	<h2>Pages</h2>
+ <a href="{% url 'new:pageForm' book.pk %}"> <p id="add">Add a page</p></a>
+<br>
+</div>
+{% for page in pages %}
+<div class="onePage">
+<div class="edit">
+<p>Page Number = {{page.pageno}}</p>
+{% if page.get_length != None %}
+<p>No of words = {{page.get_length}}</p>
+{% endif %}
+ <a href="{% url 'new:edit' page.pk %}"><b>edit page</b></a>
+</div>
+<div class="page">
+{% if page.heading %}
+<br> <br>
+
+<h3>{{ page.heading|nbsp }}</h3>
+{% else %}
+<br>
+<br>
+{% endif %}
+<div class="para">
+<br>
+
+<p>{{page.para|nbsp }}</p>
+
+<br><br>
+</div>
+<p class="pagenumber"> Page {{page.pageno}} </p>
+</div>
+
+{% endfor %}
+</div>
+</div>
+</div>
+{% endblock %}
+{% block js %}
+<script type="text/javascript" src="{% static 'new/js/details.js'%}"></script>
+{% endblock %}

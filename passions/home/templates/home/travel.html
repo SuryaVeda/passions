@@ -1,0 +1,71 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block main %}
+<link rel="stylesheet" type="text/css" href="{% static 'home/CSS/travel.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'home/CSS/music.css' %}">
+
+<link href="https://fonts.googleapis.com/css?family=EB+Garamond&display=swap" rel="stylesheet">
+<div class="ima">
+	<img src="{% static 'home/images/himalayas.jpg'%}" height="400px" width="100%">
+
+</div>
+<div class="whole">
+<div class="container-fluid head">
+	<div class="row">
+		<div class="col-lg-10 col-sm-12 about">
+			<h4>About.</h4>
+			<h6>A.Suryaveda</h6>
+			<img src="{% static 'home/images/me.jpg'%}" height="200px" width="350px">
+
+			<p>Hi, Whenever I want to go to a place, I google it, I look around many websites but not one of them describes an itinerary for a low budget, solo travellers. I made this website to give you a glimpse about a place. All the pics that i uploaded are original and NOT edited. I hope that this information will be useful to your trip. </p>
+      <br>
+      <p> Best of luck! </p>
+		</div>
+		<div class="col-lg-2 col-auto contents">
+			<h5>Contents</h5>
+      
+      <input id="myInput" type="text" placeholder="Search..">
+    <ol id="myList">
+    	{% for post in posts %}
+    	<a href="{% url 'travel:expand' post.pk %}"><li>{{post.name}}</li></a>
+    	{% endfor %}
+    </ol>
+		</div>
+	</div>
+  
+  <div class="guitar">
+    <h4>Trips</h4>
+    <br>
+    {% if request.user.admin %}
+    <a href="{% url 'travel:add' %}">Add any Trips</a>
+    {% endif %}
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    {% for post in posts %}
+  <div class="box col-lg-3 col-sm-12">
+    <a href="{% url 'travel:expand' post.pk %}"><h2>{{post.name}}</h2></a>
+    <p><b> {{post.user.username}} |  {{post.date|date:"D, jS M, Y"}}</b></p>
+    <a href="{% url 'travel:expand' post.pk %}"><img src="/media/{{post.img1}}" height="300px" width="270px"></a>
+  </div>
+    {% endfor %}
+  </div>
+
+
+</div>
+</div>
+{% endblock %}
+{% block js %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myList li").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+{% endblock %}
